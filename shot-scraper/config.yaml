@@ -5,6 +5,7 @@ description: "Take website screenshots with shot-scraper"
 url: "https://github.com/weidi/ha-addons/tree/main/shot-scraper"
 startup: once
 boot: manual_only
+init: false
 stdin: true
 arch:
   - amd64
