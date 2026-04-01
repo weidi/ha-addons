@@ -1,0 +1,4 @@
+# https://developers.home-assistant.io/docs/apps/repository#repository-configuration
+name: weidi Home Assistant add-ons
+url: "https://github.com/weidi/ha-addons"
+maintainer: weidi <jweidacher@gmail.com>

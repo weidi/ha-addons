@@ -1,0 +1,22 @@
+name: "Shot Scraper"
+version: "0.1.0"
+slug: "shot_scraper"
+description: "Take website screenshots with shot-scraper"
+url: "https://github.com/weidi/ha-addons/tree/main/shot-scraper"
+startup: once
+boot: manual_only
+stdin: true
+arch:
+  - amd64
+  - aarch64
+map:
+  - type: share
+    read_only: false
+options:
+  url: ""
+  output: "shot-scraper/output.png"
+  args: ""
+schema:
+  url: "str"
+  output: "str"
+  args: "str?"
