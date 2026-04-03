@@ -1,5 +1,5 @@
 name: "Shot Scraper"
-version: "0.1.0"
+version: "0.1.1"
 slug: "shot_scraper"
 description: "Take website screenshots with shot-scraper"
 url: "https://github.com/weidi/ha-addons/tree/main/shot-scraper"
@@ -16,8 +16,12 @@ map:
 options:
   url: ""
   output: "shot-scraper/output.png"
+  auth_file: ""
+  retries: 2
   args: ""
 schema:
   url: "str"
   output: "str"
+  auth_file: "str?"
+  retries: "int"
   args: "str?"

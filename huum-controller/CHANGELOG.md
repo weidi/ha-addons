@@ -1,0 +1,15 @@
+# Changelog
+
+## 0.1.1
+
+- Switched the add-on back to Home Assistant's default Alpine base image
+- Removed the Debian base image override and rely on Bun's Alpine musl binary during build
+
+## 0.1.0
+
+- Initial `huum-controller` add-on release
+- Packaged the upstream `kpalang/huum-controller` project as a Home Assistant add-on
+- Exposed the fixed heater TCP listener on `6969`
+- Exposed the upstream HTTP service on `8080`
+- Enabled Home Assistant Ingress for the upstream HTTP service
+- Added minimal `update_frequency` configuration mapped to the upstream runtime

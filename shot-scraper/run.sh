@@ -14,6 +14,7 @@ import select
 import shlex
 import subprocess
 import sys
+import time
 
 
 CONFIG_PATH = "/data/options.json"
@@ -74,6 +75,17 @@ def normalize_output(raw_output):
     return output_path
 
 
+def normalize_auth_file(raw_auth_file):
+    auth_file = (raw_auth_file or "").strip()
+    if not auth_file:
+        return None
+
+    auth_path = pathlib.Path(auth_file)
+    if not auth_path.is_absolute():
+        auth_path = pathlib.Path("/share") / auth_path
+    return auth_path
+
+
 def chromium_env():
     candidates = (
         "/usr/bin/chromium-browser",
@@ -85,6 +97,18 @@ def chromium_env():
             break
 
 
+def is_retryable_error(output):
+    retry_markers = (
+        "net::ERR_NETWORK_CHANGED",
+        "net::ERR_CONNECTION_RESET",
+        "net::ERR_CONNECTION_CLOSED",
+        "net::ERR_CONNECTION_TIMED_OUT",
+        "net::ERR_TIMED_OUT",
+        "Timeout 30000ms exceeded",
+    )
+    return any(marker in output for marker in retry_markers)
+
+
 config = merged_config()
 url = str(config.get("url", "")).strip()
 if not url:
@@ -94,10 +118,49 @@ if not url:
 output_path = normalize_output(config.get("output", ""))
 output_path.parent.mkdir(parents=True, exist_ok=True)
 
+auth_path = normalize_auth_file(config.get("auth_file", ""))
+if auth_path is not None and not auth_path.exists():
+    print(f"ERROR: Auth file not found: {auth_path}", file=sys.stderr)
+    sys.exit(1)
+
+try:
+    retries = max(0, int(config.get("retries", 2)))
+except (TypeError, ValueError):
+    print("ERROR: The 'retries' option must be an integer.", file=sys.stderr)
+    sys.exit(1)
+
 extra_args = shlex.split(str(config.get("args", "")).strip())
 chromium_env()
 
-command = ["shot-scraper", url, "-o", str(output_path), *extra_args]
-print("Executing:", " ".join(shlex.quote(part) for part in command), flush=True)
-subprocess.run(command, check=True)
+command = ["shot-scraper", url, "-o", str(output_path)]
+if auth_path is not None:
+    command.extend(["--auth", str(auth_path)])
+command.extend(extra_args)
+
+attempts = retries + 1
+for attempt in range(1, attempts + 1):
+    print(
+        f"Executing attempt {attempt}/{attempts}: "
+        + " ".join(shlex.quote(part) for part in command),
+        flush=True,
+    )
+    result = subprocess.run(command, text=True, capture_output=True)
+    if result.stdout:
+        print(result.stdout, end="")
+    if result.stderr:
+        print(result.stderr, end="", file=sys.stderr)
+    if result.returncode == 0:
+        sys.exit(0)
+
+    combined_output = (result.stdout or "") + (result.stderr or "")
+    if attempt < attempts and is_retryable_error(combined_output):
+        print(
+            f"Transient navigation error detected, retrying in 2 seconds...",
+            file=sys.stderr,
+            flush=True,
+        )
+        time.sleep(2)
+        continue
+
+    sys.exit(result.returncode)
 PY

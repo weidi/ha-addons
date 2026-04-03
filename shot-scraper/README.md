@@ -25,6 +25,8 @@ action:
       input:
         url: "https://www.home-assistant.io/"
         output: "shot-scraper/automation.png"
+        auth_file: "shot-scraper/home-assistant-auth.json"
+        retries: 2
         args: "--width 1440 --height 1200"
 ```
 
@@ -33,5 +35,7 @@ Notes:
 - `app: local_shot_scraper` matches the local add-on slug generated from `shot_scraper`
 - `hassio.app_stdin` writes to stdin, so the add-on should be started first
 - this add-on is a one-shot worker and exits after each run, so each automation run should start it again
+- `auth_file` is optional and should point to a Playwright auth context JSON file, usually under `/share`
+- `retries` controls how many extra attempts are made for transient navigation failures such as `ERR_NETWORK_CHANGED`
 - `output` is relative to `/share` unless you provide an absolute path
 - `args` is optional
