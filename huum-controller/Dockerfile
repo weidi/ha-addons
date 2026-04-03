@@ -15,6 +15,10 @@ RUN curl -fsSL https://bun.sh/install | bash
 
 RUN git clone --depth 1 https://github.com/kpalang/huum-controller /opt/huum-controller \
     && cd /opt/huum-controller \
+    && printf "%s\n" \
+      "import './tcp/tcp-server.ts'" \
+      "import './http/http-server.ts'" \
+      > src/main.ts \
     && bun install --frozen-lockfile
 
 COPY run.sh /run.sh

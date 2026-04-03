@@ -9,7 +9,8 @@ This add-on is a long-running service:
 - it listens for the heater controller on TCP port `6969`
 - it exposes the upstream HTTP service on port `8080`
 - it can be opened through Home Assistant Ingress
-- it keeps the upstream Home Assistant-related runtime behavior intact by running the upstream `src/main.ts`
+- it patches the upstream `src/main.ts` during image build because the current upstream repository imports a missing `src/homeassistant/forwarder.ts` file
+- it starts the working upstream TCP and HTTP servers after that patch
 
 The upstream HTTP surface is currently lightweight and API-oriented. In Home Assistant, Ingress gives you an embedded way to reach that service even though it is not a rich standalone dashboard.
 
@@ -130,3 +131,4 @@ Any future Home Assistant integration can target the add-on's HTTP API rather th
 - Only the required TCP and HTTP ports are exposed.
 - The internal ports are fixed by design even if you remap the published host-side ports.
 - The upstream project source is fetched during Docker image build instead of being committed into this repository.
+- The current upstream repository head is patched during image build to remove a broken import of a missing Home Assistant forwarder file.

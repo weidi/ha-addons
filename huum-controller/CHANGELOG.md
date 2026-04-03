@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.2
+
+- Patch the cloned upstream `src/main.ts` during image build to remove a broken import of a missing `src/homeassistant/forwarder.ts` file
+- Restore successful add-on startup on current upstream `kpalang/huum-controller` HEAD
+
 ## 0.1.1
 
 - Switched the add-on back to Home Assistant's default Alpine base image

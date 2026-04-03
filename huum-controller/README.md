@@ -19,3 +19,4 @@ Current capabilities:
 The upstream HTTP surface is currently API-oriented rather than a full standalone dashboard, so the embedded Home Assistant view is mainly a convenient access path to that service.
 
 The image builds on Home Assistant's default Alpine base and installs Bun's Alpine-compatible musl binary during build.
+During image build, the add-on also patches the upstream `src/main.ts` entrypoint because the current upstream repository imports a missing `src/homeassistant/forwarder.ts` file.
