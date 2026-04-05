@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.4
+
+- switch to own fork of huum-controller for now
+
+
 ## 0.1.2
 
 - Patch the cloned upstream `src/main.ts` during image build to remove a broken import of a missing `src/homeassistant/forwarder.ts` file
