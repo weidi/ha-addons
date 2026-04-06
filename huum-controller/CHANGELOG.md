@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.5
+
+- add `debug_protocol` as a Home Assistant option
+- pass `DEBUG_PROTOCOL` through to the upstream runtime environment
+
 ## 0.1.4
 
 - switch to own fork of huum-controller for now

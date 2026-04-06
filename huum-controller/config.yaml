@@ -1,5 +1,5 @@
 name: "Huum Controller"
-version: "0.1.4"
+version: "0.1.5"
 slug: "huum_controller"
 description: "Local Huum sauna controller with ingress and HTTP API"
 url: "https://github.com/weidi/ha-addons/tree/main/huum-controller"
@@ -21,5 +21,7 @@ ports_description:
   8080/tcp: "Huum controller HTTP API and ingress target"
 options:
   update_frequency: 60
+  debug_protocol: 1
 schema:
   update_frequency: "int(0,255)"
+  debug_protocol: "int(0,1)"

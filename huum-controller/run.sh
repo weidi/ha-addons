@@ -2,6 +2,7 @@
 set -euo pipefail
 
 export UPDATE_FREQUENCY="$(bashio::config 'update_frequency')"
+export DEBUG_PROTOCOL="$(bashio::config 'debug_protocol')"
 export TCP_HOSTNAME="0.0.0.0"
 export HTTP_HOSTNAME="0.0.0.0"
 export HTTP_PORT="8080"

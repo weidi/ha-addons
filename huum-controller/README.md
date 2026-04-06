@@ -14,7 +14,7 @@ Current capabilities:
 - Local Huum heater controller endpoint on TCP `6969`
 - HTTP API on port `8080`
 - Home Assistant Ingress access to the upstream HTTP service
-- Minimal Home Assistant-facing configuration through `update_frequency`
+- Minimal Home Assistant-facing configuration through `update_frequency` and `debug_protocol`
 
 The upstream HTTP surface is currently API-oriented rather than a full standalone dashboard, so the embedded Home Assistant view is mainly a convenient access path to that service.
 

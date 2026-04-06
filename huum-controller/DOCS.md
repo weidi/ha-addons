@@ -20,6 +20,7 @@ This add-on uses the default Alpine-based Home Assistant base image. Bun's offic
 
 ```yaml
 update_frequency: 60
+debug_protocol: false
 ```
 
 ### Option: `update_frequency`
@@ -30,6 +31,15 @@ How often the controller should ask the heater for status updates, in seconds.
 - default: `60`
 
 This value is passed to the upstream app through the `UPDATE_FREQUENCY` environment variable.
+
+### Option: `debug_protocol`
+
+Enable verbose protocol-level debugging for the upstream Huum controller runtime.
+
+- valid values: `1` or `0`
+- default: `0s`
+
+This value is passed to the upstream app through the `DEBUG_PROTOCOL` environment variable.
 
 ## Ports
 
@@ -52,7 +62,7 @@ The upstream HTTP API and the target used by Home Assistant Ingress.
 ## Ingress Usage
 
 1. Install the add-on.
-2. Configure `update_frequency` if needed.
+2. Configure `update_frequency` and `debug_protocol` if needed.
 3. Start the add-on.
 4. Open the add-on from the Home Assistant sidebar or add-on page.
 
