@@ -1,5 +1,5 @@
 name: "Huum Controller"
-version: "0.1.5"
+version: "0.1.6"
 slug: "huum_controller"
 description: "Local Huum sauna controller with ingress and HTTP API"
 url: "https://github.com/weidi/ha-addons/tree/main/huum-controller"
