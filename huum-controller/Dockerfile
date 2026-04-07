@@ -13,7 +13,7 @@ RUN apk add --no-cache \
 
 RUN curl -fsSL https://bun.sh/install | bash
 
-RUN git clone -b state-refactor --depth 1 https://github.com/weidi/huum-controller /opt/huum-controller \
+RUN git clone --depth 1 https://github.com/weidi/huum-controller /opt/huum-controller \
     && cd /opt/huum-controller \
     && printf "%s\n" \
       "import './tcp/tcp-server.ts'" \

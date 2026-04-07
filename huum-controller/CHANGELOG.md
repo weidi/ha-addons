@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.0
+
+- implemented useful heater states as 0x09 is not really helpful and flipping states so need more reverse engineering.
+- currently working is, turning light on/off, starting and stopping sauna session!
+
 ## 0.1.5
 
 - add `debug_protocol` as a Home Assistant option
@@ -8,7 +13,6 @@
 ## 0.1.4
 
 - switch to own fork of huum-controller for now
-
 
 ## 0.1.2
 
