@@ -9,12 +9,6 @@ This add-on is a long-running service:
 - it listens for the heater controller on TCP port `6969`
 - it exposes the upstream HTTP service on port `8080`
 - it can be opened through Home Assistant Ingress
-- it patches the upstream `src/main.ts` during image build because the current upstream repository imports a missing `src/homeassistant/forwarder.ts` file
-- it starts the working upstream TCP and HTTP servers after that patch
-
-The upstream HTTP surface is currently lightweight and API-oriented. In Home Assistant, Ingress gives you an embedded way to reach that service even though it is not a rich standalone dashboard.
-
-This add-on uses the default Alpine-based Home Assistant base image. Bun's official installation docs provide musl binaries for Alpine Linux, and the install script automatically selects the correct binary during image build.
 
 ## Configuration
 
@@ -46,10 +40,7 @@ This value is passed to the upstream app through the `DEBUG_PROTOCOL` environmen
 ### Port `6969/tcp`
 
 The fixed TCP listener used by the Huum heater controller.
-
 - this is required by the upstream project
-- the internal container port stays `6969`
-- if needed, Home Assistant lets you remap the host-side published port in the add-on network settings
 
 ### Port `8080/tcp`
 
@@ -57,14 +48,12 @@ The upstream HTTP API and the target used by Home Assistant Ingress.
 
 - the internal container port stays `8080`
 - Home Assistant Ingress proxies to this port
-- you can also publish it directly for local network access if you want to call the API outside Home Assistant
 
 ## Ingress Usage
 
 1. Install the add-on.
 2. Configure `update_frequency` and `debug_protocol` if needed.
 3. Start the add-on.
-4. Open the add-on from the Home Assistant sidebar or add-on page.
 
 Ingress is intended to expose the upstream HTTP service inside Home Assistant. The upstream project currently documents HTTP endpoints rather than a full browser UI.
 
