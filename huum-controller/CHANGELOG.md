@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.0
+
+- implemented steamer 
+- fixed edge case on state update
+
 ## 0.2.0
 
 - implemented useful heater states as 0x09 is not really helpful and flipping states so need more reverse engineering.
