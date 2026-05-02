@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1
+
+- handling sub hour intervals for heater duration
+
 ## 0.3.0
 
 - implemented steamer 
